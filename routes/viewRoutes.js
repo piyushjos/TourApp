@@ -7,10 +7,23 @@ const router = express.Router();
 
 router.get(
   '/',
-  bookingController.createBookingCheckout,
-  authController.isLoggedIn,
-  viewsController.getOverview
+  async (req, res, next) => {
+    console.time('Booking Checkout');
+    await bookingController.createBookingCheckout(req, res, next);
+    console.timeEnd('Booking Checkout');
+  },
+  async (req, res, next) => {
+    console.time('Auth Check');
+    await authController.isLoggedIn(req, res, next);
+    console.timeEnd('Auth Check');
+  },
+  async (req, res) => {
+    console.time('Overview Rendering');
+    await viewsController.getOverview(req, res);
+    console.timeEnd('Overview Rendering');
+  }
 );
+
 router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/me', authController.protect, viewsController.getAccount);
