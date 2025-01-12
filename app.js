@@ -67,8 +67,8 @@ app.use(xss()); */
   })
 ); */
 
-// Compression middleware (Commented out for testing)
-/* app.use(compression()); */
+
+ app.use(compression()); 
 
 // Test middleware
 app.use((req, res, next) => {
