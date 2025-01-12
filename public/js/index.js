@@ -30,14 +30,11 @@ if (loginForm)
   });
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
-console.log('userDataForm:', userDataForm);
 
 if (userDataForm) {
-  console.log('i am in form area');
   userDataForm.addEventListener('submit', e => {
     e.preventDefault();
     const form = new FormData();
-    console.log('Selected file:', document.getElementById('photo').files[0]);
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
@@ -65,15 +62,11 @@ if (userPasswordForm)
   });
 
   if (bookBtn) {
-    console.log('Book button exists');
     bookBtn.addEventListener('click', e => {
-      console.log('Book button clicked');
       e.target.textContent = 'Processing...';
       const { tourId } = e.target.dataset;
-      console.log(`Tour ID: ${tourId}`);
       bookTour(tourId);
     });
   } else {
-    console.log('Book button not found');
   }
   

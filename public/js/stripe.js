@@ -3,7 +3,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import {showAlert} from './alerts'
 
 export const bookTour = async (tourId) => {
-    console.log("function cALLED==> BOK TOUR")
   try {
     // Initialize Stripe
     const stripe = await loadStripe(
@@ -11,12 +10,10 @@ export const bookTour = async (tourId) => {
     );
 
     // Fetch session
-    console.log("tour id===>", tourId )
     const session = await axios.get(
-      `http://127.0.0.1:3000/api/v1/bookings/checkout-session/${tourId}`
+      `/api/v1/bookings/checkout-session/${tourId}`
     );
 
-    console.log("my sessionId===>",session.data.session.id)
 
     //Redirect to Stripe Checkout
     await stripe.redirectToCheckout({

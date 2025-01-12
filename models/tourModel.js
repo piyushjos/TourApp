@@ -134,9 +134,7 @@ tourSchema.virtual('reviews', {
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
-tourSchema.pre('save', function(next) {
-  console.log('Before save, tour name:', this.name);
-  console.log('Generated slug:', this.slug);
+tourSchema.pre('save', function(next) {  console.log('Generated slug:', this.slug);
   this.slug = slugify(this.name, { lower: true });
   next();
 });
