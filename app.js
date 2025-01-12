@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/favicon.ico', (req, res) => res.status(204).send());
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 // Set security HTTP headers
 app.use(helmet());
 
