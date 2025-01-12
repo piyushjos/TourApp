@@ -9,7 +9,8 @@ router.get(
   '/',
   // bookingController.createBookingCheckout ,
   //  authController.isLoggedIn,
-  // viewsController.getOverview
+
+  viewsController.getOverview,
   (req, res) => {
     res.send('Simplified response for testing');
   }
