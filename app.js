@@ -49,8 +49,8 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
 // Data sanitization (Commented out for testing)
-/* app.use(mongoSanitize());
-app.use(xss()); */
+app.use(mongoSanitize());
+app.use(xss()); 
 
 // Prevent parameter pollution (Commented out for testing)
 /* app.use(
