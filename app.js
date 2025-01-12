@@ -10,15 +10,16 @@ const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-const tourRouter = require('./routes/tourRoutes');
-const userRouter = require('./routes/userRoutes');
-const reviewRouter = require('./routes/reviewRoutes');
-const viewRouter = require('./routes/viewRoutes');
-const bookingRouter = require('./routes/bookingRoutes');
+// const tourRouter = require('./routes/tourRoutes');
+// const userRouter = require('./routes/userRoutes');
+// const reviewRouter = require('./routes/reviewRoutes');
+// const viewRouter = require('./routes/viewRoutes');
+// const bookingRouter = require('./routes/bookingRoutes');
 const compression = require('compression');
 
 const app = express();
 
+// Set up view engine
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -26,35 +27,34 @@ app.set('views', path.join(__dirname, 'views'));
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-// Set security HTTP headers
-app.use(helmet());
+
+// Security HTTP headers (Commented out for testing)
+/* app.use(helmet()); */
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Limit requests from same API
-const limiter = rateLimit({
+// Limit requests from same IP (Commented out for testing)
+/* const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again in an hour!'
 });
-app.use('/api', limiter);
+app.use('/api', limiter); */
 
-// Body parser, reading data from body into req.body
+// Body parser
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
-// Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+// Data sanitization (Commented out for testing)
+/* app.use(mongoSanitize());
+app.use(xss()); */
 
-// Data sanitization against XSS
-app.use(xss());
-
-// Prevent parameter pollution
-app.use(
+// Prevent parameter pollution (Commented out for testing)
+/* app.use(
   hpp({
     whitelist: [
       'duration',
@@ -65,25 +65,37 @@ app.use(
       'price'
     ]
   })
-);
-app.use(compression);
+); */
+
+// Compression middleware (Commented out for testing)
+/* app.use(compression()); */
+
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
-// 3) ROUTES
+// 3) ROUTES (Commented out all API routes for testing)
+/*
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
+*/
 
+// Replace all routes with a simple test route
+app.get('/', (req, res) => {
+  res.send('Simple test response - App is running!');
+});
+
+// Catch-all route
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
+// Global error handler (Keep it for debugging errors)
 app.use(globalErrorHandler);
 
 module.exports = app;
