@@ -29,8 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // Security HTTP headers (Commented out for testing)
-/* app.use(helmet()); */
-
+ app.use(helmet())
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
