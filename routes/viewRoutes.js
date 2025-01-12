@@ -9,7 +9,10 @@ router.get(
   '/',
   // bookingController.createBookingCheckout ,
   //  authController.isLoggedIn,
-  viewsController.getOverview
+  // viewsController.getOverview
+  (req, res) => {
+    res.send('Simplified response for testing');
+  }
 );
 router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
