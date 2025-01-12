@@ -53,7 +53,7 @@ app.use(mongoSanitize());
 app.use(xss()); 
 
 // Prevent parameter pollution (Commented out for testing)
-/* app.use(
+app.use(
   hpp({
     whitelist: [
       'duration',
@@ -64,7 +64,7 @@ app.use(xss());
       'price'
     ]
   })
-); */
+); 
 
 
  app.use(compression()); 
@@ -83,11 +83,6 @@ app.use('/', viewRouter);
 // app.use('/api/v1/reviews', reviewRouter);
 // app.use('/api/v1/bookings', bookingRouter);
 
-
-// Replace all routes with a simple test route
-app.get('/', (req, res) => {
-  res.send('Simple test response - App is running!');
-});
 
 // Catch-all route
 app.all('*', (req, res, next) => {
